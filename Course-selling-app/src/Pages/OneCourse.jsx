@@ -1,3 +1,5 @@
+import '../Styles/UpdateCourse.css';
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
@@ -35,7 +37,7 @@ function OneCourse(props) {
   }, []);
 
   return (
-    <>
+    <div className="updateCourse">
       <div
         style={{
           display: "flex",
@@ -109,8 +111,10 @@ function OneCourse(props) {
         >
           Update Course
         </button>
+        
       </div>
-    </>
+      <div>Update Course</div>
+    </div>
   );
 }
 

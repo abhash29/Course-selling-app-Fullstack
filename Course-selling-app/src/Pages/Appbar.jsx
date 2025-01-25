@@ -1,4 +1,4 @@
-import "./Appbar.css"; // Import the external CSS file
+import "../Styles/Appbar.css"; // Import the external CSS file
 
 import { useEffect, useState } from "react";
 
@@ -48,7 +48,9 @@ function Appbar() {
   } else {
     return (
       <div className="appbar">
-        <div>My App</div>
+        <div className="name">
+            Course Selling App
+          </div>
         <div className="buttons">
           <Button
             variant="contained"
@@ -56,7 +58,7 @@ function Appbar() {
               navigate("/signUp");
             }}
           >
-            SignUp
+            Admin SignUp
           </Button>
           <Button
             variant="contained"
@@ -65,7 +67,7 @@ function Appbar() {
               navigate("/signIn");
             }}
           >
-            LogIn
+            User SignUp
           </Button>
         </div>
       </div>

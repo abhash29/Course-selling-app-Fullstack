@@ -1,3 +1,5 @@
+import '../Styles/AddCourse.css'
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useNavigate } from "react-router";
@@ -19,26 +21,21 @@ function AddCourse() {
       },
     })
       .then((res) => {
-        if (res.ok) {
-          window.location.reload(); // Reloads the current page
-        } else {
-          res.json().then((data) => {
-          });
-        }
+        navigate('/courses')
       })
   };
 
   return (
-    <div style={{ margin: "20px" }}>
+    <div className="addCourse">
       <h2>Add a New Course</h2>
-      <div style={{ marginBottom: "10px" }}>
+      <div>
         <TextField
           fullWidth
           label="Title"
           variant="outlined"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          style={{ marginBottom: "10px" }}
+          style={{margin: '10px'}}
         />
         <TextField
           fullWidth
@@ -46,7 +43,7 @@ function AddCourse() {
           variant="outlined"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          style={{ marginBottom: "10px" }}
+           style={{margin: '10px'}}
         />
         <TextField
           fullWidth
@@ -54,16 +51,25 @@ function AddCourse() {
           variant="outlined"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          style={{ marginBottom: "20px" }}
+           style={{margin: '10px'}}
         />
       </div>
       <Button
         variant="contained"
         color="primary"
         onClick={handleSubmit}
-        style={{ width: "100%" }}
+        style={{margin: '10px'}}
       >
         Submit
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => {
+          navigate('/courses')
+        }}
+      >
+        Courses
       </Button>
     </div>
   );

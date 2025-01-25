@@ -1,3 +1,5 @@
+import '../Styles/Course.css'
+
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
@@ -22,51 +24,30 @@ function Course() {
         console.error("Error fetching courses:", err);
       });
   }, []);
-
-  const styles = {
-    container: {
-      fontFamily: "Arial, sans-serif",
-      padding: "20px",
-      border: "1px solid #ddd",
-      borderRadius: "10px",
-      boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
-      maxWidth: "400px",
-      margin: "20px auto",
-      textAlign: "center",
-    },
-    header: {
-      color: "#333",
-      fontSize: "24px",
-      marginBottom: "10px",
-    },
-    details: {
-      marginTop: "10px",
-      textAlign: "left",
-    },
-    spanTitle: {
-      fontWeight: "bold",
-      fontSize: "18px",
-      color: "#555",
-      display: "block",
-      marginBottom: "5px",
-    },
-    spanContent: {
-      display: "block",
-      marginBottom: "10px",
-      color: "#777",
-    },
-  };
-
+    
   return (
-    <>
-      <h1 style={styles.header}>Course Details</h1>
+    <div className="courses">
+      <div><button style={{
+                padding: "10px 16px",
+                backgroundColor: "#007BFF",
+                color: "#fff",
+                border: "none",
+                borderRadius: "4px",
+                cursor: "pointer",
+                margin: "10px"
+              }} onClick={() => {
+        navigate('/AddCourse')
+      }}>Add Courses</button></div>
+      <h1>Course Details</h1>
+      <div className='Card'>
       {courses.length > 0 ? (
         courses.map((data) => (
-          <div style={styles.container} key={data._id}>
-            <div style={styles.details}>
-              <span style={styles.spanTitle}>Title: {data.title}</span>
-              <span style={styles.spanContent}>Description: {data.description}</span>
-              <span style={styles.spanContent}>Price: {data.price}</span>
+          <div key={data._id}>
+            <div className="details">
+              <span>Title: {data.title}</span>
+              <span>Description: {data.description}</span>
+              <span>Price: {data.price}</span>
+              <img src="../rightImage.jpg" alt="" style={{height: "25vh"}}/>
             </div>
             <button
               onClick={() => {
@@ -122,7 +103,8 @@ function Course() {
           <h2>No courses available</h2>
         </div>
       )}
-    </>
+      </div>
+      </div>
   );
 }
 

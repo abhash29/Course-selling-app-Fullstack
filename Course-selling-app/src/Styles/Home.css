@@ -1,0 +1,20 @@
+.main{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: black;
+    height: 80vh;
+    margin-top: 40px;
+}
+
+.left{
+    color: #efb896;
+    display: flex;
+    flex-direction: column;
+    font-size: 40px;
+    line-height: 2;
+    padding: 20px;
+}
+.right img{
+    height: 60vh;
+}

@@ -1,0 +1,60 @@
+.appbar{
+    background-color: rgb(100, 100, 187);
+    display: flex;
+    justify-content: space-between;
+    height: 15vh;
+    color: white;
+}
+
+.name{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    font-weight: bold;
+}
+.buttons{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+.buttons button{
+    margin: 8px;
+    padding: 10px;
+}
+.user-info{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+    font-size: 30px;
+}
+
+.logout-button {
+    background-color: #ff4d4d;
+    /* Red color for logout */
+    color: white;
+    /* White text */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.logout-button:hover {
+    background-color: #cc0000;
+    /* Darker red on hover */
+    transform: scale(1.05);
+    /* Slight zoom effect */
+}
+
+.logout-button:active {
+    background-color: #a30000;
+    /* Even darker red on click */
+    transform: scale(0.98);
+    /* Slight shrink effect */
+}

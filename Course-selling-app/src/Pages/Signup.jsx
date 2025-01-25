@@ -1,4 +1,4 @@
-import './Signup.css'
+import '../Styles/Signup.css'
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -12,14 +12,14 @@ function Signup() {
   const [password, setPassword] = useState("");
   return (
     <div className="signup">
-      <div>
+      <div className='text'>
         <span>Welcome Back!</span>
         <span>Let's get you signUp</span>
       </div>
-      <div>
-        <TextField  label="username" variant="outlined" onChange={(e) => setUsername(e.target.value)} />
+      <div className='input'>
+        <TextField  label="username" variant="outlined" onChange={(e) => setUsername(e.target.value)} style={{margin: '10px'}}/>
         <br />
-        <TextField  label="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} />
+        <TextField  label="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} style={{margin: '10px'}}/>
         <br />
         <Button 
   variant="contained" 
@@ -34,7 +34,7 @@ function Signup() {
     window.location = '/courses' 
 }}
 >
-  SignUp
+  Admin Signup
 </Button>
 
       </div>
