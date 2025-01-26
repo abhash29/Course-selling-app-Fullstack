@@ -1,119 +1,94 @@
 import '../Styles/UpdateCourse.css';
 
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router";
+import { useNavigate, useParams } from "react-router-dom"; // Fixed import
 
+import { BASE_URL } from '../../../config';
 import TextField from "@mui/material/TextField";
+import axios from 'axios';
 
-function OneCourse(props) {
+function OneCourse() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
-  const navigate = useNavigate();
-  let { courseId } = useParams();
 
-  const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
+  const { courseId } = useParams(); // Fixed let -> const
+
   useEffect(() => {
-    fetch("http://localhost:3000/admin/courses", {
-      method: "GET",
-      body: JSON.stringify({
-        title: title,
-        description: description,
-        price: price
-      }),
+    axios.get(`${BASE_URL}/admin/course/${courseId}`, {
       headers: {
-        "Content-type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("token"),
       },
     })
-      .then((res) => res.json())
-      .then((data) => {
-        setCourses(data.courses);
-        console.log(data);
-      })
-      .catch((err) => {
-        console.error("Error fetching courses:", err);
-      });
-  }, []);
+    .then((res) => {
+      setTitle(res.data.title || ""); 
+      setDescription(res.data.description || "");
+      setPrice(res.data.price || "");
+    })
+    .catch((err) => {
+      console.error("Error fetching course:", err);
+    });
+  }, [courseId]);
+
+  const handleUpdate = () => {
+    axios.put(`${BASE_URL}/admin/course/${courseId}`, 
+      { title, description, price }, // Fixed payload
+      {
+        headers: {
+          "Authorization": "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    )
+    .then(() => {
+      navigate("/courses");
+    })
+    .catch((err) => {
+      console.error("Error updating course:", err);
+    });
+  };
 
   return (
     <div className="updateCourse">
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-          border: "1px solid #ddd",
-          borderRadius: "8px",
-          padding: "16px",
-          margin: "16px",
-          width: "300px",
-          boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
-        }}
-      >
-        <div
-          style={{
-            marginBottom: "16px",
-          }}
-        >
+      <div className='majburi'>
+        <div className="inputs">
           <TextField 
-            id="outlined-basic" 
             label="Title" 
             variant="outlined" 
             value={title} 
             onChange={(e) => setTitle(e.target.value)} 
-            style={{ marginBottom: "8px", width: "100%" }}
+            fullWidth
+            style={{ marginBottom: "8px" }}
           />
           <TextField 
-            id="outlined-basic" 
             label="Description" 
             variant="outlined" 
             value={description} 
             onChange={(e) => setDescription(e.target.value)} 
-            style={{ marginBottom: "8px", width: "100%" }}
+            fullWidth
+            style={{ marginBottom: "8px" }}
           />
           <TextField 
-            id="outlined-basic" 
             label="Price" 
             variant="outlined" 
             value={price} 
             onChange={(e) => setPrice(e.target.value)} 
-            style={{ marginBottom: "8px", width: "100%" }}
+            fullWidth
+            style={{ marginBottom: "8px" }}
           />
+          <button onClick={handleUpdate}>Update Course</button>
         </div>
-        <button
-          style={{
-            padding: "10px 16px",
-            backgroundColor: "#007BFF",
-            color: "#fff",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-          onClick={() => {
-            fetch(`http://localhost:3000/admin/courses/${courseId}`, {
-              method: "PUT",
-              headers: {
-                "Content-type": "application/json",
-                "Authorization": "Bearer " + localStorage.getItem("token"),
-              },
-              body: JSON.stringify({ title, description, price }),
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                console.log("Course updated:", data);
-                navigate("/courses");
-              })
-              .catch((err) => {
-                console.error("Error updating course:", err);
-              });
-          }}
-        >
-          Update Course
-        </button>
-        
+      
+        <div className='courseDetails'>
+          <h2>Update this course</h2>
+          <div className="details">
+            <span><strong>Title:</strong> {title || "Loading..."}</span>
+            <span><strong>Description:</strong> {description || "Loading..."}</span>
+            <span><strong>Price:</strong> {price || "Loading..."}</span>
+            <img src="../rightImage.jpg" alt="Course" style={{ height: "25vh" }} />
+          </div>
+        </div>
       </div>
-      <div>Update Course</div>
     </div>
   );
 }

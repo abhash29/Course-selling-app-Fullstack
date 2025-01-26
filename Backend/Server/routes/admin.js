@@ -1,6 +1,6 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
-const { User, Course, Admin } = require("../db");
+const { Course, Admin } = require("../db");
 const { SECRET, authenticateJwt } = require("../middleware/auth");
 
 const router = express.Router();
@@ -65,6 +65,12 @@ router.post("/course", authenticateJwt, async (req, res) => {
 router.get("/courses", async (req, res) => {
     const courses = await Course.find({});
     res.json({ courses });
+});
+
+//Get a course
+router.get("/course/:id", async (req, res) => {
+    const course = await Course.findById(req.params.id);
+    res.json(course);
 });
 
 // Update a Course

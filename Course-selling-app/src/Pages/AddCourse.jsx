@@ -1,7 +1,9 @@
 import '../Styles/AddCourse.css'
 
+import {BASE_URL} from '../../../config';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import axios from 'axios'
 import { useNavigate } from "react-router";
 import { useState } from "react";
 
@@ -11,19 +13,27 @@ function AddCourse() {
   const [price, setPrice] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = () => {
-    fetch("http://localhost:3000/admin/course", {
-      method: "POST",
-      body: JSON.stringify({ title, description, price }),
-      headers: {
-        "Content-type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
+  const handleSubmit = async () => {
+  try {
+    await axios.post(
+      `${BASE_URL}/admin/course`,
+      {
+        title: title,
+        description: description,
+        price: price,
       },
-    })
-      .then((res) => {
-        navigate('/courses')
-      })
-  };
+      {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
+    );
+    navigate('/courses');
+  } catch (error) {
+    console.error("Error adding course:", error);
+  }
+};
+
 
   return (
     <div className="addCourse">

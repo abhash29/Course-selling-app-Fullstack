@@ -1,38 +1,39 @@
-//import "./Signup.css";
+import '../Styles/Signup.css'
 
+import { BASE_URL } from '../../../config';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
+import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 import { useState } from "react";
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
   return (
     <div className="signup">
-      <div>
+      <div className='text'>
         <span>Welcome Back!</span>
         <span>Let's get you Login</span>
       </div>
-      <div>
-        <TextField id="outlined-basic" label="email" variant="outlined" onChange={(e) => setUsername(e.target.value)} />
+      <div className='input'>
+        <TextField id="outlined-basic" label="email" variant="outlined" onChange={(e) => setUsername(e.target.value)} style={{margin: '10px'}} />
         <br />
-        <TextField id="outlined-basic" label="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} />
+        <TextField id="outlined-basic" label="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} style={{margin: '10px'}} />
         <br />
         <Button variant="contained" onClick={() => {
-          fetch('http://localhost:3000/admin/login', {
-            method: "POST",
-            body: JSON.stringify({
-              username,
-              password
-            }),
-            headers: {
-              "Content-type": "application/json"
+          axios.post(`${BASE_URL}/admin/login`,
+            {username, password},
+            {
+              headers: {
+                "Content-Type": "application/json"
+              }
             }
-          })
-          .then(res => res.json())
-          .then(data => {
-            console.log(data);
-          })
+          )
+          .then(res => console.log(res.data))
+          navigate('/courses')
         }}>Login</Button>
       </div>
     </div>

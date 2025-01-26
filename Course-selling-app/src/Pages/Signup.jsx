@@ -1,15 +1,19 @@
 import '../Styles/Signup.css'
 
+import { BASE_URL } from '../../../config';
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from 'axios'
+import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
-;
 
 function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  //Recoil
   return (
     <div className="signup">
       <div className='text'>
@@ -22,16 +26,17 @@ function Signup() {
         <TextField  label="password" variant="outlined" onChange={(e) => setPassword(e.target.value)} style={{margin: '10px'}}/>
         <br />
         <Button 
-  variant="contained" 
-  onClick={async () => {
-    const response = await axios.post("http://localhost:3000/admin/signup", {
-      username: username,
-      password: password
+        variant="contained" 
+        onClick={async () => {
+        const response = await axios.post(`${BASE_URL}/admin/signup`, {
+          username: username,
+          password: password
     })
    console.log(response.data);
-   const data = (await response).data;
+   let data = response.data;
    localStorage.setItem("token", data.token);
-    window.location = '/courses' 
+   setUsername(username)
+   navigate('/courses')
 }}
 >
   Admin Signup

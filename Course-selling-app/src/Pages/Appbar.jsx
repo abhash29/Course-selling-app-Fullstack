@@ -2,15 +2,18 @@ import "../Styles/Appbar.css"; // Import the external CSS file
 
 import { useEffect, useState } from "react";
 
+import { BASE_URL } from "../../../config";
 import Button from "@mui/material/Button";
+import axios from 'axios';
 import { useNavigate } from "react-router";
 
 function Appbar() {
   const navigate = useNavigate();
   const [userEmail, setUserEmail] = useState(null);
+  //Recoil
 
   useEffect(() => {
-    fetch("http://localhost:3000/admin/me", {
+    axios.get(`${BASE_URL}/admin/me`, {
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),
@@ -67,7 +70,7 @@ function Appbar() {
               navigate("/signIn");
             }}
           >
-            User SignUp
+            Admin Login
           </Button>
         </div>
       </div>
