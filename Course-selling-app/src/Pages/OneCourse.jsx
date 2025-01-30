@@ -1,11 +1,14 @@
 import '../Styles/UpdateCourse.css';
 
+import {coursePrice, courseTitle} from "../../store/selectors/course";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom"; // Fixed import
+import {useRecoilState, useRecoilValue, useSetRecoilState} from "recoil";
 
 import { BASE_URL } from '../../../config';
 import TextField from "@mui/material/TextField";
 import axios from 'axios';
+import { courseState } from '../../store/atoms/course';
 
 function OneCourse() {
   const [title, setTitle] = useState("");
@@ -13,7 +16,9 @@ function OneCourse() {
   const [price, setPrice] = useState("");
 
   const navigate = useNavigate();
-  const { courseId } = useParams(); // Fixed let -> const
+  const { courseId } = useParams();
+
+  const setCourse = useSetRecoilState(courseState);
 
   useEffect(() => {
     axios.get(`${BASE_URL}/admin/course/${courseId}`, {

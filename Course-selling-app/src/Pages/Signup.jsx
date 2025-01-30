@@ -5,7 +5,9 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import {useSetRecoilState} from "recoil";
 import { useState } from 'react';
+import {userState} from "../../store/atoms/user";
 
 function Signup() {
   const [username, setUsername] = useState("");
@@ -14,6 +16,7 @@ function Signup() {
   const navigate = useNavigate();
 
   //Recoil
+  const setUser = useSetRecoilState(userState);
   return (
     <div className="signup">
       <div className='text'>
@@ -32,7 +35,6 @@ function Signup() {
           username: username,
           password: password
     })
-   console.log(response.data);
    let data = response.data;
    localStorage.setItem("token", data.token);
    setUsername(username)

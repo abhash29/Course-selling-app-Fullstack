@@ -1,6 +1,10 @@
 import './App.css'
 
 import { BrowserRouter, Route, Routes } from "react-router";
+import {
+    RecoilRoot,
+    useSetRecoilState
+} from 'recoil';
 
 import AddCourse from './Pages/AddCourse';
 import Appbar from "./Pages/Appbar";
@@ -12,6 +16,7 @@ import SignUp from './Pages/Signup';
 
 function App() {
   return (
+    <RecoilRoot>
     <BrowserRouter>
       <Appbar />
       <div className="Content">
@@ -25,6 +30,7 @@ function App() {
         </Routes>
       </div>
     </BrowserRouter>
+    </RecoilRoot>
   );
 }
 
